@@ -5,11 +5,11 @@ using namespace std;
 
 int main() {
     int n;
-    cin >> n; // Input the length of the array
+    cin >> n; 
     vector<int> arr(n);
 
     for (int i = 0; i < n; i++) {
-        cin >> arr[i]; // Input the elements of the array
+        cin >> arr[i]; 
     }
 
     int max_diff = 0; // Initialize the maximum difference to 0
