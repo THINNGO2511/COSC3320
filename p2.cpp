@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//8ae462e3-da5d-4c84-9047-15c4bcc84c90 
 int main() {
     int n;
     cin >> n; 
@@ -12,12 +13,11 @@ int main() {
         cin >> arr[i]; 
     }
 
-    int max_diff = 0; // Initialize the maximum difference to 0
-    int min_element = arr[0]; // Initialize the minimum element found so far
-
+    int max_diff = 0;
+    int min_element = arr[0]; 
     for (int i = 1; i < n; i++) {
-        max_diff = max(max_diff, arr[i] - min_element); // Update max_diff if a larger difference is found
-        min_element = min(min_element, arr[i]); // Update min_element if a smaller element is found
+        max_diff = max(max_diff, arr[i] - min_element); 
+        min_element = min(min_element, arr[i]); 
     }
 
     if (max_diff < 0) {
