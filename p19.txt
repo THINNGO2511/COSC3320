@@ -1,0 +1,58 @@
+P19 Psuedocode:
+*special thanks to tachorzy for assisting in the Rubber Duck method*
+
+This program takes 3 functions outside the main, 2 for the mergeSort (merge() and mergeSort()) and one helper function.
+I'll use global variables for the sake of psuedocode, but it is very easy to just add them as parameters to the modified
+merge sort.
+
+int robertPoints // These are the global vars that hold our output
+int rachelPoints
+
+int helper(subArray1, subArray2) // this will be rachel and robert subarrays interchangably 
+    // 3 ints, one to hold an index, one to hold a temp score, one to hold a final score. Start all at 0.
+    while index < size of subArray2
+        while score is less than array1 size AND array2[index] is more than array1[tempScore]
+            increment score by one
+        add tempScore to finalScore
+        increment index
+    return finalScore
+
+void merge(&robertArray, &rachelArray, left, mid, right)
+
+    // This function is VERY similar to mergeSort, I recommend writing a basic
+    // mergeSort first, then adding the second array.
+
+    find midpoint of left subarray
+    find midpoint of right subarray
+
+    create 4 subArrays (left & subarray for Robert and left & right for rachel)
+
+    copy the data to each subarray (same as usual, just doing it twice, i used 2 separate for loops, one for left subarrays one for rights)
+
+    // This is where knowing normal MergeSort helps in understanding
+    create index values (i, j) for both robert and rachel (total of 4) set these to 0, then make 2 indexes to hold the parameter left (one for rob and one for rachel)
+    
+    if (i_indexRobert < leftSubArraySize And j_indexRobert < rightsubSize) // this could possibly be simplified if second condition is not needed
+        add helper(leftRachelSubarray, rightRobertsubarray) to robertPoints
+    repeat for rachel, make sure you swap the necessary objects/variables
+
+    merge subarrays back into their respective arrays
+    left and right robert will merge back into robertArray and vice versa.
+
+    // the rest of the function is the same as basic mergeSort, with extra operations since thers two arrays,
+    // you get the idea 
+
+void mergeSort(array1, array2, left, right) // this function is the EXACT same as its original, just add the second array as a parameter and you're set.
+
+int main()
+    make two arrays, one for robert and one for rachel.
+    fill arrays with stdin (this should be obvious)
+
+    call mergeSort with both arrays and left/right values
+
+    output robertPoints and rachelPoints
+
+    
+    
+
+
