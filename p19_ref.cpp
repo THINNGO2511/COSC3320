@@ -15,9 +15,11 @@ int pointsCounter(vector<int> arr1, vector<int> arr2)
         {
             score++;
         }
+
         finalScore += score;
         index++;
     }
+
     return finalScore;
 }
 
@@ -41,6 +43,7 @@ void merge(vector<int> &arr1, vector<int> &arr2, int left, int mid, int right, i
     }
 
     points1 += pointsCounter(leftArr2, rightArr1);
+    // cout<<points1<<endl;
     points2 += pointsCounter(leftArr1, rightArr2);
 
     while (i1 < mid1 && j1 < mid2)
@@ -95,6 +98,11 @@ void mergeSort(vector<int> &arr1, vector<int> &arr2, int left, int right, int &p
     if (left < right)
     {
         int mid = left + (right - left) / 2;
+
+        // for(int i = 0; i < arr1.size(); i++){
+        //     cout<<arr1[i]<<" ";
+        // }
+        // cout<<endl;
 
         mergeSort(arr1, arr2, left, mid, points1, points2);
         mergeSort(arr1, arr2, mid + 1, right, points1, points2);
