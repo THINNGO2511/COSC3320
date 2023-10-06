@@ -1,85 +1,84 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include <sstream>
 using namespace std;
 
-// Function to find the rotation count (k) in the rotated sorted array
-int findRotationCount(const vector<int>& nums, int left, int right) {
-    if (left == right) {
-        return left;
+// PSID: 2053907
+// Submission ID: a227330b-335e-4075-b4c5-f689c544eaf4 
+
+//function to find the rotation
+int findRotationCount(const std::vector<int>& vec) {
+    int left = 0;
+    int right = vec.size() - 1;
+
+    while (left < right) {
+        int mid = (left + right) / 2;
+
+        if (vec[left] <= vec[mid] && vec[mid] <= vec[right]) {
+            return left; 
+        }
+
+        if (vec[left] > vec[mid] && vec[mid] <= vec[right]) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
     }
-    
-    int mid = left + (right - left) / 2;
-    
-    if (mid < right && nums[mid] > nums[mid + 1]) {
-        return mid + 1;
-    }
-    
-    if (mid > left && nums[mid] < nums[mid - 1]) {
-        return mid;
-    }
-    
-    if (nums[left] < nums[mid]) {
-        return findRotationCount(nums, mid + 1, right);
-    }
-    
-    return findRotationCount(nums, left, mid - 1);
+
+    return left;  
 }
 
-// Function to perform binary search to find an element in the rotated sorted array
-int search(const vector<int>& nums, int target, int left, int right) {
-    if (left > right) {
+//function to find target number
+int binarySearch(const std::vector<int>& nums, int target) {
+        int low = 0, high = nums.size() - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            }
+
+            if (nums[low] <= nums[mid]) {
+                if (nums[low] <= target && target < nums[mid]) {
+                    high = mid - 1;
+                } else {
+                    low = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[high]) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
+        }
         return -1;
-    }
-    
-    int mid = left + (right - left) / 2;
-    
-    if (nums[mid] == target) {
-        return mid;
-    }
-    
-    if (nums[left] <= nums[mid]) {
-        if (nums[left] <= target && target < nums[mid]) {
-            return search(nums, target, left, mid - 1);
-        } else {
-            return search(nums, target, mid + 1, right);
-        }
-    } else {
-        if (nums[mid] < target && target <= nums[right]) {
-            return search(nums, target, mid + 1, right);
-        } else {
-            return search(nums, target, left, mid - 1);
-        }
-    }
 }
 
 int main() {
     vector<int> nums;
-    int n, target;
-    char c;
+    int n = 0, target = 0, result = 0;
+    string strInput; 
+    stringstream ss(strInput);
     
-    // Read input array
-    while (cin >> n) {
+    // Read input
+    getline(cin, strInput);
+    ss<<strInput;
+    while(ss >> n){
         nums.push_back(n);
-        cin.get(c); // Read space or newline
-        if (c == '\n') {
-            break;
-        }
     }
     
     // Read target value
     cin >> target;
     
-    // Find the rotation count (k)
-    int k = findRotationCount(nums, 0, nums.size() - 1);
-    
-    // Output the rotation count (k) as the answer for part (a)
+    // Find the rotation count 
+    int k = findRotationCount(nums);
     cout << k<<"\n";
     
-    // Perform binary search to find the target value and output the result for part (b)
-    int result = search(nums, target, 0, nums.size() - 1);
+    // Perform binary search to find the target number 
+    result = binarySearch(nums, target);
     cout << result <<"\n";
-    
+
     return 0;
 }
