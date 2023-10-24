@@ -3,44 +3,41 @@
 #include <string>
 using namespace std;
 
-int textFitting(int width, int height, const string& text) {
-    // Split the text into words (a vector stores all the words)
-    vector<string> words;
-    string word = "";
-    for (char c : text) {
-        if (c == ' ') {
-            words.push_back(word);
-            word = "";
-        } else {
-            word += c;
+// PSID: 2053907
+// Submission ID: ba951739-11a0-44e7-bc30-4cf0671addb8 
+
+int textFitting(const vector<int> &wordLengths, int width, int height, int size, int count)
+{
+    vector<int> arr(width + 1, 0);
+    int index = 0;
+    int spaceTaken = 0;
+    int textCounter = 0;
+
+    for (int widthIndex = 0; widthIndex < width; ++widthIndex)
+    {
+        if (height >= count)
+        {
+            int linesFit = height / count;
+            textCounter += linesFit;
+            arr[widthIndex] = textCounter;
+            spaceTaken = height - (height % count);
+        }
+        else
+            spaceTaken = 0;
+
+        while (wordLengths[index] <= height - spaceTaken)
+        {
+            spaceTaken += wordLengths[index] + 1;
+            index = (index + 1) % size;
+            if (index == 0)
+            {
+                textCounter++;
+                arr[widthIndex] = textCounter;
+            }
         }
     }
-    words.push_back(word);
 
-    vector<string> wordsStep;
-    
-    int n = words.size();
-
-    //so now count how many words you can store in an array, use math, and store what words was used at that level
-    //then count how many times they occur, and then return the least
-
-    // for(int i = 0; i < width ; i++){//vertical steps
-    //     int line_Width = 0 ; //to be used for managing line width with in a line
-    //     while(line_Width <= width){
-            
-    //     }
-    // }
-
-    int text_size = 0;
-    for(int i=0; i<n;i++){
-        text_size += (words[i].length() + 1);
-    }
-    // cout<<text_size<<"this is text size"<<endl;
-
-    int matrixSize = height*width;
-    int result = matrixSize/text_size;
-
-    return result;
+    return arr[width - 1];
 }
 
 int main() {
@@ -50,8 +47,20 @@ int main() {
     cin >> width >> height;
     cin.ignore(); // Ignore newline character
     getline(cin, text);
+    int count = text.size() + 1;
 
-    int result = textFitting(width, height, text);
+    vector<int> wordLengths;
+    size_t pos = 0;
+    while ((pos = text.find(' ')) != std::string::npos)
+    {
+        wordLengths.push_back(pos); 
+        text.erase(0, pos + 1);     
+    }
+    wordLengths.push_back(text.size()); 
+
+    int size = wordLengths.size();
+
+    int result = textFitting(wordLengths, width, height, size, count);
     cout << result << endl;
 
     return 0;
