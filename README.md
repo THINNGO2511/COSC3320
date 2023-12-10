@@ -5,3 +5,5 @@ This is a repo where all DSA hw will be stored, with lowest (fastest) runtime ef
 Let see how far we can get 🏎️
 
 ![image](https://github.com/THINNGO2511/COSC3320/assets/55904076/773c424c-8ee0-40ed-8c99-628eacd9e7ea)
+
+UPDATE: 2023 December 9th, as of right now, the course is completed. Technically just do LC 👍 
